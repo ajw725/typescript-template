@@ -1,28 +1,12 @@
-type Combinable = number | string;
-type OutputFormat = 'string' | 'number';
-
-function combine(
-  input1: Combinable,
-  input2: Combinable,
-  resultType: OutputFormat
-  ) {
-  let result;
-  if(typeof input1 === 'number' && typeof input2 === 'number') {
-    result = input1 + input2;
-  } else {
-    result = input1.toString() + input2.toString();
-  }
-  if(resultType === 'number') {
-    return +result;
-  }
-
-  return result.toString();
+function add(n1: number, n2: number) {
+  return n1 + n2;
 }
 
-const combinedAges = combine(30, 26, 'number');
-console.log(combinedAges);
+function printResult(num: number) {
+  console.log('result: ' + num);
+}
 
-const combinedStringAges = combine('30', '26', 'number');
-console.log(combinedStringAges);
+let combineValues: (a: number, b: number) => number;
 
-const combinedWords = combine('cat', 'dog', 'string');
+combineValues = add;
+// combineValues = printResult; // DOES NOT COMPILE because function signature is wrong
