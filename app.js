@@ -1,1 +1,7 @@
-console.log('Your code here');
+function add(n1, n2) {
+    return n1 + n2;
+}
+var num1 = 5;
+var num2 = 2.8;
+var sum = add(+num1, +num2);
+console.log(sum);
