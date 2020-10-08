@@ -8,3 +8,9 @@ userInput = 'Andrew'; // ok
 if(typeof userInput === 'string') {
   userName = userInput; // ok, because we checked type first
 }
+
+function generateError(message: string, errorCode: number): never {
+  throw { message: message, errorCode: errorCode };
+}
+
+generateError('An error occurred', 500);
