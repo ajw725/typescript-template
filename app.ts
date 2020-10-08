@@ -1,21 +1,10 @@
-function add(n1: number, n2: number) {
-  return n1 + n2;
+let userInput: unknown;
+let userName: string;
+
+userInput = 5; // ok
+userInput = 'Andrew'; // ok
+// userName = userInput; // NOT ok! this would work if userInput had type any
+
+if(typeof userInput === 'string') {
+  userName = userInput; // ok, because we checked type first
 }
-
-function printResult(num: number) {
-  console.log('result: ' + num);
-}
-
-function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
-  const result = n1 + n2;
-  cb(result);
-}
-
-let combineValues: (a: number, b: number) => number;
-
-combineValues = add;
-// combineValues = printResult; // DOES NOT COMPILE because function signature is wrong
-
-addAndHandle(10, 20, (result) => {
-  console.log(result);
-});
