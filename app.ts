@@ -6,7 +6,16 @@ function printResult(num: number) {
   console.log('result: ' + num);
 }
 
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  const result = n1 + n2;
+  cb(result);
+}
+
 let combineValues: (a: number, b: number) => number;
 
 combineValues = add;
 // combineValues = printResult; // DOES NOT COMPILE because function signature is wrong
+
+addAndHandle(10, 20, (result) => {
+  console.log(result);
+});
