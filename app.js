@@ -1,7 +1,9 @@
-function add(n1, n2) {
-    return n1 + n2;
-}
-var num1 = 5;
-var num2 = 2.8;
-var sum = add(+num1, +num2);
-console.log(sum);
+// const person: {
+//   name: string,
+//   age: number
+// } = {
+var person = {
+    name: 'Andrew',
+    age: 29
+};
+console.log(person.name);

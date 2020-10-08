@@ -1,15 +1,10 @@
-function add(n1: number, n2: number, showResult?: boolean) {
-  if(showResult) {
-    console.log(n1 + n2);
-  } else {
-    return n1 + n2;
-  }
-}
+// const person: {
+//   name: string,
+//   age: number
+// } = {
+const person = {
+  name: 'Andrew',
+  age: 29
+};
 
-const num1 = 5;
-const num2 = 2.8;
-
-const printResult = true;
-
-const sum = add(+num1, +num2);
-console.log(`returned sum: ${sum}`);
+console.log(person.name);
