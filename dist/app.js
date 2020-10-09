@@ -44,10 +44,25 @@ var AccountingDepartment = (function (_super) {
     function AccountingDepartment(id, reports) {
         var _this = _super.call(this, id, 'Accounting') || this;
         _this.reports = reports;
+        _this.lastReport = reports[0];
         return _this;
     }
+    Object.defineProperty(AccountingDepartment.prototype, "mostRecentReport", {
+        get: function () {
+            if (this.lastReport) {
+                return this.lastReport;
+            }
+            throw new Error('No report found.');
+        },
+        set: function (newVal) {
+            this.mostRecentReport = newVal;
+        },
+        enumerable: false,
+        configurable: true
+    });
     AccountingDepartment.prototype.addReport = function (text) {
         this.reports.push(text);
+        this.lastReport = text;
     };
     AccountingDepartment.prototype.printReports = function () {
         console.log(this.reports);
@@ -73,4 +88,5 @@ accounting.addReport('Something went wrong');
 accounting.hire('Andrew');
 accounting.hire('Alli');
 console.log(accounting);
+console.log("Most recent report: " + accounting.mostRecentReport);
 //# sourceMappingURL=app.js.map
