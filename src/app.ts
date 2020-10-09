@@ -1,21 +1,31 @@
-// let userInput: unknown;
-// let userName: string;
-//
-// userInput = 5; // ok
-// userInput = 'Andrew'; // ok
-// // userName = userInput; // NOT ok! this would work if userInput had type any
-//
-// if(typeof userInput === 'string') {
-//   userName = userInput; // ok, because we checked type first
-// }
-//
-// function generateError(message: string, errorCode: number): never {
-//   throw { message: message, errorCode: errorCode };
-// }
-//
-// generateError('An error occurred', 500);
+class Department {
+    name: string;
+    private employees: string[] = [];
 
-const button = document.querySelector('button')!;
-button.addEventListener('click', () => {
-    console.log('clicked');
-});
+    constructor(newName: string) {
+        this.name = newName;
+    }
+
+    describe(this: Department) {
+        console.log('Department: ' + this.name);
+    }
+
+    hire(employee: string) {
+        this.employees.push(employee);
+    }
+
+    printRoster() {
+        console.log(this.employees.length);
+        console.log(this.employees);
+    }
+}
+
+const dept = new Department('Engineering');
+console.log(dept);
+
+//const deptCopy = { describe: dept.describe, name: 'foo' };
+//deptCopy.describe();
+
+dept.hire('Jack');
+dept.hire('Jill');
+dept.printRoster();
