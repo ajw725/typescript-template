@@ -18,9 +18,6 @@ var Department = (function () {
         this.name = name;
         this.employees = [];
     }
-    Department.prototype.describe = function () {
-        console.log('Department: ' + this.name);
-    };
     Department.prototype.hire = function (employee) {
         this.employees.push(employee);
     };
@@ -37,6 +34,9 @@ var ITDepartment = (function (_super) {
         _this.admins = admins;
         return _this;
     }
+    ITDepartment.prototype.describe = function () {
+        console.log('I am an IT department!');
+    };
     return ITDepartment;
 }(Department));
 var AccountingDepartment = (function (_super) {
@@ -60,6 +60,9 @@ var AccountingDepartment = (function (_super) {
         enumerable: false,
         configurable: true
     });
+    AccountingDepartment.prototype.describe = function () {
+        console.log('Welcome to Accounting!');
+    };
     AccountingDepartment.prototype.addReport = function (text) {
         this.reports.push(text);
         this.lastReport = text;
@@ -76,11 +79,6 @@ var AccountingDepartment = (function (_super) {
     };
     return AccountingDepartment;
 }(Department));
-var dept = new Department('d1', 'Engineering');
-console.log(dept);
-dept.hire('Jack');
-dept.hire('Jill');
-dept.printRoster();
 var itDept = new ITDepartment('d2', ['Andrew']);
 console.log(itDept);
 var accounting = new AccountingDepartment('d3', []);
