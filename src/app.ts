@@ -1,7 +1,9 @@
-interface Greetable {
+interface Named {
   readonly name: string;
-  //age: number;
-  
+}
+
+// an interface, unlike a class, can extend *multiple* other interfaces
+interface Greetable extends Named {
   greet(phrase: string): void;
 }
 
