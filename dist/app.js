@@ -52,6 +52,13 @@ var AccountingDepartment = (function (_super) {
     AccountingDepartment.prototype.printReports = function () {
         console.log(this.reports);
     };
+    AccountingDepartment.prototype.hire = function (name) {
+        if (name === 'Andrew') {
+            console.error('Andrew is not an accountant');
+            return;
+        }
+        this.employees.push(name);
+    };
     return AccountingDepartment;
 }(Department));
 var dept = new Department('d1', 'Engineering');
@@ -63,5 +70,7 @@ var itDept = new ITDepartment('d2', ['Andrew']);
 console.log(itDept);
 var accounting = new AccountingDepartment('d3', []);
 accounting.addReport('Something went wrong');
+accounting.hire('Andrew');
+accounting.hire('Alli');
 console.log(accounting);
 //# sourceMappingURL=app.js.map
