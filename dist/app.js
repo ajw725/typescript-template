@@ -1,8 +1,9 @@
 "use strict";
 var Department = (function () {
-    function Department(newName) {
-        this.employees = [];
-        this.name = newName;
+    function Department(id, name, employees) {
+        this.id = id;
+        this.name = name;
+        this.employees = employees;
     }
     Department.prototype.describe = function () {
         console.log('Department: ' + this.name);
@@ -16,7 +17,7 @@ var Department = (function () {
     };
     return Department;
 }());
-var dept = new Department('Engineering');
+var dept = new Department('1', 'Engineering', []);
 console.log(dept);
 dept.hire('Jack');
 dept.hire('Jill');

@@ -1,10 +1,5 @@
 class Department {
-    name: string;
-    private employees: string[] = [];
-
-    constructor(newName: string) {
-        this.name = newName;
-    }
+    constructor(private id: string, public name: string, private employees: string[]) {}
 
     describe(this: Department) {
         console.log('Department: ' + this.name);
@@ -20,7 +15,7 @@ class Department {
     }
 }
 
-const dept = new Department('Engineering');
+const dept = new Department('1', 'Engineering', []);
 console.log(dept);
 
 //const deptCopy = { describe: dept.describe, name: 'foo' };
