@@ -1,3 +1,14 @@
+// creating a function type:
+// type AddFn = (a: number, b: number) => number;
+
+// creating a function interface:
+interface AddFn {
+  (a: number, b: number): number;
+}
+
+let add: AddFn;
+add = (n1, n2) => n1 + n2;
+
 interface Named {
   readonly name: string;
 }
