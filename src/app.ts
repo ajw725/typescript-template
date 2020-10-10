@@ -145,4 +145,19 @@ realInput.value = 'hello';
 
 // to avoid conflicts with JSX in React, there is a different syntax:
 const realInput2 = document.getElementById('user-input') as HTMLInputElement;
-realInput2.value = 'whatever';
+// OR:
+const realInput3 = document.getElementById('user-input')!;
+console.log((realInput3 as HTMLInputElement).value);
+
+// index properties
+// want to hold error object with arbitrary keys, like
+// { email: 'Not a valid email', username: 'Must start with a letter' }
+interface ErrorContainer {
+  [prop: string]: string; // this object can have any number of arbitrary string properties, with string values
+};
+
+const errors: ErrorContainer = {
+  email: 'Not a valid email!',
+  foo: 'bar'
+};
+console.log(errors);

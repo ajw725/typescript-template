@@ -71,5 +71,12 @@ var input = document.getElementById('user-input');
 var realInput = document.getElementById('user-input');
 realInput.value = 'hello';
 var realInput2 = document.getElementById('user-input');
-realInput2.value = 'whatever';
+var realInput3 = document.getElementById('user-input');
+console.log(realInput3.value);
+;
+var errors = {
+    email: 'Not a valid email!',
+    foo: 'bar'
+};
+console.log(errors);
 //# sourceMappingURL=app.js.map
