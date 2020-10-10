@@ -10,7 +10,8 @@ let add: AddFn;
 add = (n1, n2) => n1 + n2;
 
 interface Named {
-  readonly name: string;
+  readonly name?: string;
+  outputName?: string; // optional property
 }
 
 // an interface, unlike a class, can extend *multiple* other interfaces
@@ -19,10 +20,21 @@ interface Greetable extends Named {
 }
 
 class Person implements Greetable {
-  constructor(public name: string, private age: number) {}
+  name?: string;
+  age = 29;
+
+  constructor(n?: string) {
+    if(n) {
+      this.name = n;
+    }
+  }
 
   greet(phrase: string) {
-    console.log(`${phrase}, ${this.name}`);
+    if(this.name) {
+      console.log(`${phrase}, ${this.name}`);
+    } else {
+      console.log('hi');
+    }
   }
 }
 
@@ -35,7 +47,7 @@ class Person implements Greetable {
 //   }
 // };
 
-const user1 = new Person('Andrew', 29);
+const user1 = new Person('Andrew');
 user1.name = 'new name';
 user1.greet('Hello');
 

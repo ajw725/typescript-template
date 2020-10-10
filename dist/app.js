@@ -2,16 +2,23 @@
 var add;
 add = function (n1, n2) { return n1 + n2; };
 var Person = (function () {
-    function Person(name, age) {
-        this.name = name;
-        this.age = age;
+    function Person(n) {
+        this.age = 29;
+        if (n) {
+            this.name = n;
+        }
     }
     Person.prototype.greet = function (phrase) {
-        console.log(phrase + ", " + this.name);
+        if (this.name) {
+            console.log(phrase + ", " + this.name);
+        }
+        else {
+            console.log('hi');
+        }
     };
     return Person;
 }());
-var user1 = new Person('Andrew', 29);
+var user1 = new Person('Andrew');
 user1.name = 'new name';
 user1.greet('Hello');
 var user2;
