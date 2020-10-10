@@ -129,3 +129,20 @@ function moveAnimal(animal: Animal) {
 
 moveAnimal({ type: 'bird', flyingSpeed: 30 });
 moveAnimal({ type: 'horse', runningSpeed: 40 });
+
+const para = document.querySelector('p'); // has type HTMLParagraphElement | null
+const para2 = document.getElementById('message'); // has type HTMLElement | null
+
+// this doesn't work because TS sees input as just a regular HTML element,
+// not specifically as an input
+const input = document.getElementById('user-input')!;
+// input.value = 'hi there';
+
+// so instead, we cast it as an input element.
+// NOTE: type-casting implicitly adds the "!" to tell TS the element will be present
+const realInput = <HTMLInputElement>document.getElementById('user-input');
+realInput.value = 'hello';
+
+// to avoid conflicts with JSX in React, there is a different syntax:
+const realInput2 = document.getElementById('user-input') as HTMLInputElement;
+realInput2.value = 'whatever';
