@@ -1,70 +1,23 @@
 "use strict";
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var stringArray = [];
-var anyArray = [];
-var p1 = new Promise(function (resolve, reject) {
-    setTimeout(function () {
-        resolve('done!');
-    }, 2000);
-});
-p1.then(function (data) { return data.split(' '); });
-function merge(objA, objB) {
-    return Object.assign(objA, objB);
+function Logger(constructor) {
+    console.log('Logging...');
+    console.log(constructor);
 }
-var obj1 = { name: 'Andrew' };
-var obj2 = { age: 29 };
-var merged = merge(obj1, obj2);
-console.log(merged);
-console.log(merged.age);
-merge(obj1, obj2);
-function constrainedMerge(objA, objB) {
-    return Object.assign(objA, objB);
-}
-function countAndDescribe(element) {
-    var descriptionText = 'No value';
-    if (element.length > 0) {
-        descriptionText = "Got " + element.length + " elements";
+let Person = class Person {
+    constructor() {
+        this.name = 'Andrew';
+        console.log('creating person');
     }
-    return [element, descriptionText];
-}
-console.log(countAndDescribe('Hello, world!'));
-console.log(countAndDescribe(['running', 'piano']));
-function extractAndConvert(obj, key) {
-    return obj[key];
-}
-extractAndConvert({ name: 'Andrew' }, 'name');
-var DataStorage = (function () {
-    function DataStorage() {
-        this.data = [];
-    }
-    DataStorage.prototype.addItem = function (item) {
-        this.data.push(item);
-    };
-    DataStorage.prototype.removeItem = function (item) {
-        this.data.splice(this.data.indexOf(item), 1);
-    };
-    DataStorage.prototype.getItems = function () {
-        return __spreadArrays(this.data);
-    };
-    return DataStorage;
-}());
-var textStorage = new DataStorage();
-textStorage.addItem('TypeScript');
-textStorage.addItem('Ruby');
-console.log(textStorage.getItems());
-var numberStorage = new DataStorage();
-function createCourseGoal(title, description, date) {
-    var courseGoal = {};
-    courseGoal.title = title;
-    courseGoal.description = description;
-    courseGoal.completeUntil = date;
-    return courseGoal;
-}
-var names = ['Jack', 'Nancy'];
+};
+Person = __decorate([
+    Logger
+], Person);
+const person = new Person();
+console.log(person);
 //# sourceMappingURL=app.js.map
