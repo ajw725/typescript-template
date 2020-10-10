@@ -42,6 +42,31 @@ const result = add('abc', ' def');
 // then we wouldn't be able to do this:
 console.log(result.split(' '));
 
+// optional chaining
+type Job = {
+  title: string,
+  description?: string
+};
+
+type UserData = {
+  id: string,
+  name: string,
+  job?: Job
+};
+
+const fetchedUserData: UserData = {
+  id: 'user1',
+  name: 'Andrew',
+  // job: { title: 'Lead Developer', description: 'do stuff' }
+};
+
+// const title = fetchedUserData.job.title;
+// but what if the job property doesn't exist? in JS, we would do:
+// const title = fetchedUserData.job && fetchedUserData.job.title;
+// but in TS, we can do:
+const title = fetchedUserData?.job?.title;
+console.log(title);
+
 // type UnknownEmployee = Employee | Admin;
 
 // function printEmployeeInformation(employee: UnknownEmployee) {

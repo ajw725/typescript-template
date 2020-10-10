@@ -1,4 +1,5 @@
 "use strict";
+var _a;
 var e1 = {
     name: 'Andrew',
     privileges: ['create-server'],
@@ -12,4 +13,10 @@ function add(a, b) {
 }
 var result = add('abc', ' def');
 console.log(result.split(' '));
+var fetchedUserData = {
+    id: 'user1',
+    name: 'Andrew',
+};
+var title = (_a = fetchedUserData === null || fetchedUserData === void 0 ? void 0 : fetchedUserData.job) === null || _a === void 0 ? void 0 : _a.title;
+console.log(title);
 //# sourceMappingURL=app.js.map
