@@ -17,4 +17,7 @@ var merged = merge(obj1, obj2);
 console.log(merged);
 console.log(merged.age);
 merge(obj1, obj2);
+function constrainedMerge(objA, objB) {
+    return Object.assign(objA, objB);
+}
 //# sourceMappingURL=app.js.map

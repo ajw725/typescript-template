@@ -38,5 +38,12 @@ const merged = merge(obj1, obj2);
 console.log(merged);
 console.log(merged.age);
 
-// you CAN fill in the types explicitly, like this, but it's redundant
+// you CAN provide the input types explicitly, like this, but it's redundant
 merge<{ name: string }, { age: number }>(obj1, obj2);
+
+// what if we want to impose constraints on generic types, e.g. must be objects?
+function constrainedMerge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+}
+// this fails to compile, whereas before it would have failed silently:
+// merge({ name: 'Andrew' }, 30)
