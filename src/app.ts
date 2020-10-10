@@ -24,7 +24,10 @@ type Combinable = string | number;
 type Numeric = number | boolean;
 type Universal = Combinable & Numeric;
 
-// type guards
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
 function add(a: Combinable, b: Combinable) {
   // before, we had to write a type guard using typeof like this:
   if(typeof a === 'string' || typeof b === 'string') {
@@ -34,130 +37,135 @@ function add(a: Combinable, b: Combinable) {
   return a + b;
 }
 
-type UnknownEmployee = Employee | Admin;
+// without an overload, the add function returns a combinable. so if we did
+const result = add('abc', ' def');
+// then we wouldn't be able to do this:
+console.log(result.split(' '));
 
-function printEmployeeInformation(employee: UnknownEmployee) {
-  console.log(`Name: ${employee.name}`);
+// type UnknownEmployee = Employee | Admin;
 
-  // this doesn't work because a regular Employee doesn't have privileges, BUT
-  // typeof (i.e. regular JS) doesn't know about the Employee type, so we can't use that!
-  // console.log(`Privileges: ${employee.privileges}`);
+// function printEmployeeInformation(employee: UnknownEmployee) {
+//   console.log(`Name: ${employee.name}`);
 
-  // we can do this:
-  if('privileges' in employee) {
-    console.log(`Privileges: ${employee.privileges}`);
-  }
-  if('startDate' in employee) {
-    console.log(`Start date: ${employee.startDate}`);
-  }
-}
+//   // this doesn't work because a regular Employee doesn't have privileges, BUT
+//   // typeof (i.e. regular JS) doesn't know about the Employee type, so we can't use that!
+//   // console.log(`Privileges: ${employee.privileges}`);
 
-printEmployeeInformation(e1);
+//   // we can do this:
+//   if('privileges' in employee) {
+//     console.log(`Privileges: ${employee.privileges}`);
+//   }
+//   if('startDate' in employee) {
+//     console.log(`Start date: ${employee.startDate}`);
+//   }
+// }
 
-class Car {
-  drive() {
-    console.log('driving...');
-  }
-}
+// printEmployeeInformation(e1);
 
-class Truck {
-  drive() {
-    console.log('driving a truck...');
-  }
+// class Car {
+//   drive() {
+//     console.log('driving...');
+//   }
+// }
 
-  loadCargo(amount: number) {
-    console.log(`loading ${amount} cargos...`);
-  }
-}
+// class Truck {
+//   drive() {
+//     console.log('driving a truck...');
+//   }
 
-type Vehicle = Car | Truck;
-const v1 = new Car();
-const v2 = new Truck();
+//   loadCargo(amount: number) {
+//     console.log(`loading ${amount} cargos...`);
+//   }
+// }
 
-function useVehicle(vehicle: Vehicle) {
-  vehicle.drive();
-  // can't do this because only Truck has loadCargo
-  // vehicle.loadCargo();
+// type Vehicle = Car | Truck;
+// const v1 = new Car();
+// const v2 = new Truck();
 
-  // could do this:
-  // if('loadCargo' in vehicle) {
-  //   vehicle.loadCargo(1000);
-  // }
+// function useVehicle(vehicle: Vehicle) {
+//   vehicle.drive();
+//   // can't do this because only Truck has loadCargo
+//   // vehicle.loadCargo();
 
-  // but could also do this, because Car and Truck are classes:
-  if(vehicle instanceof Truck) {
-    vehicle.loadCargo(1000);
-  }
-}
+//   // could do this:
+//   // if('loadCargo' in vehicle) {
+//   //   vehicle.loadCargo(1000);
+//   // }
 
-useVehicle(v1);
-useVehicle(v2);
+//   // but could also do this, because Car and Truck are classes:
+//   if(vehicle instanceof Truck) {
+//     vehicle.loadCargo(1000);
+//   }
+// }
 
-// discriminated unions
+// useVehicle(v1);
+// useVehicle(v2);
 
-interface Bird {
-  type: 'bird';
-  flyingSpeed: number;
-}
+// // discriminated unions
 
-interface Horse {
-  type: 'horse';
-  runningSpeed: number;
-}
+// interface Bird {
+//   type: 'bird';
+//   flyingSpeed: number;
+// }
 
-type Animal = Bird | Horse;
+// interface Horse {
+//   type: 'horse';
+//   runningSpeed: number;
+// }
 
-function moveAnimal(animal: Animal) {
-  // we could check if flyingSpeed in animal, etc...but that's not very efficient
-  // and we can't use instanceof because we're working with interfaces (TS), not classes (JS)
-  // so we create a discriminated union:
-  // add a "type" property on each interface, and then we can check it in conditionals
+// type Animal = Bird | Horse;
 
-  let speed;
-  switch (animal.type) {
-    case 'bird':
-      speed = animal.flyingSpeed;
-      break;
-    case 'horse':
-      speed = animal.runningSpeed;
-      break;
-    default:
-      speed = 0;
-  }
-  console.log(`Speed: ${speed}`);
-}
+// function moveAnimal(animal: Animal) {
+//   // we could check if flyingSpeed in animal, etc...but that's not very efficient
+//   // and we can't use instanceof because we're working with interfaces (TS), not classes (JS)
+//   // so we create a discriminated union:
+//   // add a "type" property on each interface, and then we can check it in conditionals
 
-moveAnimal({ type: 'bird', flyingSpeed: 30 });
-moveAnimal({ type: 'horse', runningSpeed: 40 });
+//   let speed;
+//   switch (animal.type) {
+//     case 'bird':
+//       speed = animal.flyingSpeed;
+//       break;
+//     case 'horse':
+//       speed = animal.runningSpeed;
+//       break;
+//     default:
+//       speed = 0;
+//   }
+//   console.log(`Speed: ${speed}`);
+// }
 
-const para = document.querySelector('p'); // has type HTMLParagraphElement | null
-const para2 = document.getElementById('message'); // has type HTMLElement | null
+// moveAnimal({ type: 'bird', flyingSpeed: 30 });
+// moveAnimal({ type: 'horse', runningSpeed: 40 });
 
-// this doesn't work because TS sees input as just a regular HTML element,
-// not specifically as an input
-const input = document.getElementById('user-input')!;
-// input.value = 'hi there';
+// const para = document.querySelector('p'); // has type HTMLParagraphElement | null
+// const para2 = document.getElementById('message'); // has type HTMLElement | null
 
-// so instead, we cast it as an input element.
-// NOTE: type-casting implicitly adds the "!" to tell TS the element will be present
-const realInput = <HTMLInputElement>document.getElementById('user-input');
-realInput.value = 'hello';
+// // this doesn't work because TS sees input as just a regular HTML element,
+// // not specifically as an input
+// const input = document.getElementById('user-input')!;
+// // input.value = 'hi there';
 
-// to avoid conflicts with JSX in React, there is a different syntax:
-const realInput2 = document.getElementById('user-input') as HTMLInputElement;
-// OR:
-const realInput3 = document.getElementById('user-input')!;
-console.log((realInput3 as HTMLInputElement).value);
+// // so instead, we cast it as an input element.
+// // NOTE: type-casting implicitly adds the "!" to tell TS the element will be present
+// const realInput = <HTMLInputElement>document.getElementById('user-input');
+// realInput.value = 'hello';
 
-// index properties
-// want to hold error object with arbitrary keys, like
-// { email: 'Not a valid email', username: 'Must start with a letter' }
-interface ErrorContainer {
-  [prop: string]: string; // this object can have any number of arbitrary string properties, with string values
-};
+// // to avoid conflicts with JSX in React, there is a different syntax:
+// const realInput2 = document.getElementById('user-input') as HTMLInputElement;
+// // OR:
+// const realInput3 = document.getElementById('user-input')!;
+// console.log((realInput3 as HTMLInputElement).value);
 
-const errors: ErrorContainer = {
-  email: 'Not a valid email!',
-  foo: 'bar'
-};
-console.log(errors);
+// // index properties
+// // want to hold error object with arbitrary keys, like
+// // { email: 'Not a valid email', username: 'Must start with a letter' }
+// interface ErrorContainer {
+//   [prop: string]: string; // this object can have any number of arbitrary string properties, with string values
+// };
+
+// const errors: ErrorContainer = {
+//   email: 'Not a valid email!',
+//   foo: 'bar'
+// };
+// console.log(errors);
