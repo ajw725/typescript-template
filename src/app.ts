@@ -92,3 +92,40 @@ function useVehicle(vehicle: Vehicle) {
 
 useVehicle(v1);
 useVehicle(v2);
+
+// discriminated unions
+
+interface Bird {
+  type: 'bird';
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: 'horse';
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  // we could check if flyingSpeed in animal, etc...but that's not very efficient
+  // and we can't use instanceof because we're working with interfaces (TS), not classes (JS)
+  // so we create a discriminated union:
+  // add a "type" property on each interface, and then we can check it in conditionals
+
+  let speed;
+  switch (animal.type) {
+    case 'bird':
+      speed = animal.flyingSpeed;
+      break;
+    case 'horse':
+      speed = animal.runningSpeed;
+      break;
+    default:
+      speed = 0;
+  }
+  console.log(`Speed: ${speed}`);
+}
+
+moveAnimal({ type: 'bird', flyingSpeed: 30 });
+moveAnimal({ type: 'horse', runningSpeed: 40 });
