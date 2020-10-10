@@ -29,4 +29,8 @@ function countAndDescribe(element) {
 }
 console.log(countAndDescribe('Hello, world!'));
 console.log(countAndDescribe(['running', 'piano']));
+function extractAndConvert(obj, key) {
+    return obj[key];
+}
+extractAndConvert({ name: 'Andrew' }, 'name');
 //# sourceMappingURL=app.js.map
