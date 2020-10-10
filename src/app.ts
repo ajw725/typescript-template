@@ -1,5 +1,5 @@
 // arrays in typescript are generic types!
-const names = ['Jack', 'Jill']; // ts infers type
+// const names = ['Jack', 'Jill']; // ts infers type
 // const names2: Array = []; // invalid because we haven't specified type
 const stringArray: Array<string> = []; // valid with type
 const anyArray: Array<any> = []; // also valid with type any!
@@ -100,3 +100,27 @@ const numberStorage = new DataStorage<number>();
 // objStorage.removeItem({ name: 'TypeScript' });
 // console.log(objStorage.getItems()); // still contains TypeScript!
 // the way we've implemented the class, it really only works with primitive types
+
+
+/*** generic utility types ***/
+
+// partial types
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+  let courseGoal: Partial<CourseGoal> = {}; // Partial makes all properties optional
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal; // without type casting, it's still a partial type
+}
+
+// read-only types
+const names: Readonly<string[]> = ['Jack', 'Nancy'];
+// names.push('Stephen'); // not allowed
+// names.pop(); // not allowed

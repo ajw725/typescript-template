@@ -6,7 +6,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var names = ['Jack', 'Jill'];
 var stringArray = [];
 var anyArray = [];
 var p1 = new Promise(function (resolve, reject) {
@@ -60,4 +59,12 @@ textStorage.addItem('TypeScript');
 textStorage.addItem('Ruby');
 console.log(textStorage.getItems());
 var numberStorage = new DataStorage();
+function createCourseGoal(title, description, date) {
+    var courseGoal = {};
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.completeUntil = date;
+    return courseGoal;
+}
+var names = ['Jack', 'Nancy'];
 //# sourceMappingURL=app.js.map
