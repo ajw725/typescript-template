@@ -67,6 +67,14 @@ const fetchedUserData: UserData = {
 const title = fetchedUserData?.job?.title;
 console.log(title);
 
+// what do we do if we don't know whether a particular value is null?
+const userInput = null;
+// in JS, we could do this, BUT it treats things like '' as falsey
+const storedData = userInput || 'DEFAULT';
+// to handle just null or undefined, TS has the nullish coalescing operator, i.e. ??
+const storedData2 = userInput ?? 'DEFAULT';
+console.log(storedData2);
+
 // type UnknownEmployee = Employee | Admin;
 
 // function printEmployeeInformation(employee: UnknownEmployee) {

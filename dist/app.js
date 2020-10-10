@@ -19,4 +19,8 @@ var fetchedUserData = {
 };
 var title = (_a = fetchedUserData === null || fetchedUserData === void 0 ? void 0 : fetchedUserData.job) === null || _a === void 0 ? void 0 : _a.title;
 console.log(title);
+var userInput = null;
+var storedData = userInput || 'DEFAULT';
+var storedData2 = userInput !== null && userInput !== void 0 ? userInput : 'DEFAULT';
+console.log(storedData2);
 //# sourceMappingURL=app.js.map
