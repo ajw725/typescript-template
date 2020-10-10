@@ -67,3 +67,36 @@ function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) 
   return obj[key];
 }
 extractAndConvert({ name: 'Andrew' }, 'name');
+
+// generic classes
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    // the indexOf thing works with primitive types, but NOT with reference types like objects
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+// textStorage.addItem(1) => not allowed
+textStorage.addItem('TypeScript');
+textStorage.addItem('Ruby');
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+
+// const objStorage = new DataStorage<object>();
+// objStorage.addItem({ name: 'TypeScript' });
+// objStorage.addItem({ name: 'Ruby' });
+// objStorage.removeItem({ name: 'TypeScript' });
+// console.log(objStorage.getItems()); // still contains TypeScript!
+// the way we've implemented the class, it really only works with primitive types
