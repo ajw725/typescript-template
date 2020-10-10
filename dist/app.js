@@ -20,4 +20,13 @@ merge(obj1, obj2);
 function constrainedMerge(objA, objB) {
     return Object.assign(objA, objB);
 }
+function countAndDescribe(element) {
+    var descriptionText = 'No value';
+    if (element.length > 0) {
+        descriptionText = "Got " + element.length + " elements";
+    }
+    return [element, descriptionText];
+}
+console.log(countAndDescribe('Hello, world!'));
+console.log(countAndDescribe(['running', 'piano']));
 //# sourceMappingURL=app.js.map

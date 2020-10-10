@@ -47,3 +47,18 @@ function constrainedMerge<T extends object, U extends object>(objA: T, objB: U) 
 }
 // this fails to compile, whereas before it would have failed silently:
 // merge({ name: 'Andrew' }, 30)
+
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = 'No value';
+  if(element.length > 0) {
+    descriptionText = `Got ${element.length} elements`;
+  }
+  return [element, descriptionText];
+}
+
+console.log(countAndDescribe('Hello, world!'));
+console.log(countAndDescribe(['running', 'piano']));
