@@ -19,6 +19,7 @@ function Logger(logString: string) {
 
 function WithTemplate(template: string, hookId: string) {
   return function(constructor: any) {
+    console.log('rendering template');
     const element = document.getElementById(hookId);
     const person = new constructor();
     if(element) {
@@ -28,7 +29,9 @@ function WithTemplate(template: string, hookId: string) {
   }
 }
 
-//@Logger('LOGGING - PERSON')
+// decorator functions run in REVERSE order, i.e. from bottom up
+// but...the decorators themselves, i.e. Logger() and WithTemplate(), run top down
+@Logger('LOGGING - PERSON')
 @WithTemplate('<h1>Person</h1>', 'app')
 class Person {
   name = 'Andrew';
@@ -38,5 +41,36 @@ class Person {
   }
 }
 
-//const person = new Person();
-//console.log(person);
+// const person = new Person();
+// console.log(person);
+
+/*** property decorators ***/
+
+// target is object prototype for an instance property, or class constructor for static property
+// propertyName is name of decorated property
+// property decorators ALSO execute when the class (and thus the property) is defined
+function PropertyLog(target: any, propertyName: string) {
+  console.log(target);
+  console.log(propertyName);
+}
+
+class Product {
+  @PropertyLog
+  title: string;
+  private _price: number;
+
+  set price(newPrice: number) {
+    if(newPrice && newPrice > 0) {
+      this._price = newPrice;
+    }
+  }
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this._price = price;
+  }
+
+  getPriceWithTax(tax: number) {
+    return this.price * (1 + tax);
+  }
+}
