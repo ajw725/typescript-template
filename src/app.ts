@@ -50,8 +50,36 @@ class Person {
 // propertyName is name of decorated property
 // property decorators ALSO execute when the class (and thus the property) is defined
 function PropertyLog(target: any, propertyName: string) {
+  console.log('Property decorator');
   console.log(target);
   console.log(propertyName);
+}
+
+// target is same as above
+// name is accessor name
+// descriptor is a PropertyDescriptor, which is a built-in TS type
+function AccessorLog(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor decorator');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+// same as accessor decorator params
+function MethodLog(target: any, name: string | Symbol, descriptor: PropertyDescriptor) {
+  console.log('Method decorator');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+// name is the method, not the parameter
+// position is position of parameter in method args, starting from 0
+function ParameterLog(target: any, name: string | Symbol, position: number) {
+  console.log('Parameter decorator');
+  console.log(target);
+  console.log(name);
+  console.log(position);
 }
 
 class Product {
@@ -59,6 +87,7 @@ class Product {
   title: string;
   private _price: number;
 
+  @AccessorLog
   set price(newPrice: number) {
     if(newPrice && newPrice > 0) {
       this._price = newPrice;
@@ -70,7 +99,8 @@ class Product {
     this._price = price;
   }
 
-  getPriceWithTax(tax: number) {
+  @MethodLog
+  getPriceWithTax(@ParameterLog tax: number) {
     return this.price * (1 + tax);
   }
 }
