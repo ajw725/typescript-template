@@ -18,13 +18,20 @@ function Logger(logString: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
-  return function(constructor: any) {
-    console.log('rendering template');
-    const element = document.getElementById(hookId);
-    const person = new constructor();
-    if(element) {
-      element.innerHTML = template;
-      element.querySelector('h1')!.textContent = person.name;
+  return function<T extends { new(...args: any[]): { name: string } }>(originalConstructor: T) {
+    // a class decorator's return function can return a new constructor for the class,
+    // which will override the old constructor!
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+
+        console.log('rendering template');
+        const element = document.getElementById(hookId);
+        if(element) {
+          element.innerHTML = template;
+          element.querySelector('h1')!.textContent = this.name;
+        }
+      }
     }
   }
 }
@@ -41,8 +48,8 @@ class Person {
   }
 }
 
-// const person = new Person();
-// console.log(person);
+const person = new Person();
+console.log(person);
 
 /*** property decorators ***/
 
