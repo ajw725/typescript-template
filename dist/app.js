@@ -112,4 +112,62 @@ __decorate([
 const printer = new Printer();
 const button = document.querySelector('button');
 button.addEventListener('click', printer.showMessage);
+const registeredValidators = {};
+function Validates(validation) {
+    return function (target, propertyName) {
+        const className = target.constructor.name;
+        let validators = registeredValidators[className] || {};
+        let propValidators = validators[propertyName] || [];
+        registeredValidators[className] = Object.assign(Object.assign({}, validators), { [propertyName]: [...propValidators, validation] });
+    };
+}
+function validate(obj) {
+    const className = obj.constructor.name;
+    const classValidators = registeredValidators[className];
+    if (!classValidators) {
+        return true;
+    }
+    for (const prop in classValidators) {
+        for (const validator of classValidators[prop]) {
+            switch (validator) {
+                case 'required':
+                    if (!obj[prop]) {
+                        return false;
+                    }
+                    break;
+                case 'positive':
+                    if (obj[prop] <= 0) {
+                        return false;
+                    }
+                    break;
+            }
+        }
+    }
+    return true;
+}
+class Course {
+    constructor(t, p) {
+        this.title = t;
+        this.price = p;
+    }
+}
+__decorate([
+    Validates('required')
+], Course.prototype, "title", void 0);
+__decorate([
+    Validates('positive')
+], Course.prototype, "price", void 0);
+const courseForm = document.querySelector('form');
+courseForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const titleEl = document.getElementById('title');
+    const priceEl = document.getElementById('price');
+    const title = titleEl.value;
+    const price = +priceEl.value;
+    const course = new Course(title, price);
+    if (!validate(course)) {
+        alert('Invalid course!');
+    }
+    console.log(course);
+});
 //# sourceMappingURL=app.js.map
