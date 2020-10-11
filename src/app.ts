@@ -70,6 +70,11 @@ function AccessorLog(target: any, name: string, descriptor: PropertyDescriptor) 
   console.log(target);
   console.log(name);
   console.log(descriptor);
+
+  // can set new values for get, set, configurable, enumerable
+  // return {
+
+  // };
 }
 
 // same as accessor decorator params
@@ -111,3 +116,29 @@ class Product {
     return this.price * (1 + tax);
   }
 }
+
+function Autobind(_target: any, _methodName: string | Symbol, descriptor: PropertyDescriptor) {
+  const newDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      // "this" here = holder of getter method, which will always be the object on which
+      // the getter is defined, NOT the target of the event listener
+      return descriptor.value.bind(this);
+    }
+  };
+  return newDescriptor;
+}
+
+class Printer {
+  message = 'This works!';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const printer = new Printer();
+const button = document.querySelector('button')!;
+button.addEventListener('click', printer.showMessage);

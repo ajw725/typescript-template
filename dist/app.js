@@ -88,4 +88,28 @@ __decorate([
     MethodLog,
     __param(0, ParameterLog)
 ], Product.prototype, "getPriceWithTax", null);
+function Autobind(_target, _methodName, descriptor) {
+    const newDescriptor = {
+        configurable: true,
+        enumerable: false,
+        get() {
+            return descriptor.value.bind(this);
+        }
+    };
+    return newDescriptor;
+}
+class Printer {
+    constructor() {
+        this.message = 'This works!';
+    }
+    showMessage() {
+        console.log(this.message);
+    }
+}
+__decorate([
+    Autobind
+], Printer.prototype, "showMessage", null);
+const printer = new Printer();
+const button = document.querySelector('button');
+button.addEventListener('click', printer.showMessage);
 //# sourceMappingURL=app.js.map
